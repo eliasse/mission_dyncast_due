@@ -2,16 +2,18 @@
 #define _MISSION_ITEM_
 
 #include "Enums.h"
+#include <Arduino.h>
 
 class MissionItem {
-public:
+ public:
   int type;
-  virtual ~MissionItem();
+  inline ~MissionItem();
   virtual void Cloops() = 0;
   virtual void Start() = 0;
   virtual int  Progress() = 0;
   virtual void onCompletion() = 0;
-  void GetTypeId();
+  virtual void PrintItem() = 0;
+  inline void GetTypeId();
 };
 
 MissionItem::~MissionItem() {

@@ -1,13 +1,17 @@
 #include <vector>
-#include "MissionItem.h"
+//#include "MissionItem.h"
 #include "Enums.h"
 #include "LedBlink.h"
+#include <HardwareSerial.h>
+#include "MissionHandler.h"
 
 #define LED1 3
 #define LED2 4
 #define LED3 5
 
-std::vector<MissionItem*> Mission;
+int op_mode = SERVICE;
+
+MissionHandler Pilot;
 
 void setup()
 {
@@ -22,45 +26,45 @@ void setup()
   analogWrite(LED3, 0);
 
   // Setup a mission
-  unsigned long args1[] = {LED1, 128, 5000};
-  unsigned long args2[] = {LED2, 128, 5000};
-  unsigned long args3[] = {LED3, 128, 5000};
+  unsigned long args1[] = {LED1, 128, 1000};
+  unsigned long args2[] = {LED2, 128, 1000};
+  unsigned long args3[] = {LED3, 128, 1000};
   unsigned long args4[] = {LED1, 64, 2000};
   unsigned long args5[] = {LED3, 64, 2000};
-  unsigned long args6[] = {LED2, 254, 3000};
-  unsigned long args7[] = {LED1, 254, 3000};
-  Mission.push_back( new LedBlink(args1) );
-  Mission.push_back( new LedBlink(args2) );
-  Mission.push_back( new LedBlink(args3) );
-  Mission.push_back( new LedBlink(args4) );
-  Mission.push_back( new LedBlink(args5) );
-  Mission.push_back( new LedBlink(args6) );
-  Mission.push_back( new LedBlink(args7) );
+  unsigned long args6[] = {LED2, 254, 1000};
+  unsigned long args7[] = {LED1, 254, 1000};
+  Pilot.Mission.push_back( new LedBlink(args1) );
+  Pilot.Mission.push_back( new LedBlink(args2) );
+  Pilot.Mission.push_back( new LedBlink(args3) );
+  Pilot.Mission.push_back( new LedBlink(args4) );
+  Pilot.Mission.push_back( new LedBlink(args5) );
+  Pilot.Mission.push_back( new LedBlink(args6) );
+  Pilot.Mission.push_back( new LedBlink(args7) );
+
+  delay(1000);
 
   Serial.print("MISSION SIZE: ");
-  Serial.println(Mission.size());
+  Serial.println(Pilot.Mission.size());
 
-  Mission.front()->Start();
+  delay(2000);
+  //Pilot.Mission.front()->Start();
+  Pilot.Begin();
+
+  Serial.println("Begun mission");
+  delay(4000);
+
   PrintMissionProgress();
+
+  delay(1000);
 }
 
 void loop()
 {
-  if (Mission.front()->Progress())
-  {
-    delete *Mission.begin();          // Release memory
-    Mission.erase(Mission.begin());   // Delete vector item
-
-    if (Mission.begin() != Mission.end()) {
-      Mission.front()->Start();
-      PrintMissionProgress();
-    }
-    else Serial.println("Mission Complete");
-  }
+  Pilot.Loop();
 }
 
 void PrintMissionProgress()
 {
-  Serial.print("Items left: ");
-  Serial.println(Mission.size()-1);
+        Serial.print("Items left: ");
+        Serial.println(Pilot.Mission.size()-1);
 }
