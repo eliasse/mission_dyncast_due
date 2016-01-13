@@ -14,11 +14,14 @@ class MissionHandler {
   std::vector<MissionItem*> Mission;
   std::vector<MissionItem*>::iterator Current;
 
+  MissionHandler();
   int Begin();
   int Stop();
   void Loop();
   void EraseMission();
+  void ResetMission();
   void PrintMission();
+  void Swap(int a, int b);
 };
 
 #endif

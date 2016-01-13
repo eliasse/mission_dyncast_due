@@ -46,12 +46,15 @@ void setup()
   Serial.print("MISSION SIZE: ");
   Serial.println(Pilot.Mission.size());
 
+  Pilot.Current = Pilot.Mission.begin();
+  Serial.print("Current - Begin(): ");
+  Serial.println(Pilot.Current - Pilot.Mission.begin());
+
   delay(2000);
-  //Pilot.Mission.front()->Start();
+
   Pilot.Begin();
 
-  Serial.println("Begun mission");
-  delay(4000);
+  delay(2000);
 
   PrintMissionProgress();
 
@@ -60,6 +63,7 @@ void setup()
 
 void loop()
 {
+  if (Serial.available()) { ReadUserInput(); }
   Pilot.Loop();
 }
 

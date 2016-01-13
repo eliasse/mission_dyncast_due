@@ -13,7 +13,7 @@ class MissionItem {
   virtual int  Progress() = 0;
   virtual void onCompletion() = 0;
   virtual void PrintItem() = 0;
-  inline void GetTypeId();
+  inline  void GetTypeId();
 };
 
 MissionItem::~MissionItem() {

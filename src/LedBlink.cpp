@@ -42,7 +42,7 @@ int LedBlink::Progress()
   if ((millis() - print_timer > 1000) || print_timer == 0)
   {
     print_timer = millis();
-    Serial.println("Progress: ");
+    Serial.print("Progress: ");
     Serial.println(progress,1);
   }
 
