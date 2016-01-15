@@ -26,22 +26,17 @@ void setup()
   analogWrite(LED3, 0);
 
   // Setup a mission
-  unsigned long args1[] = {LED1, 128, 1000};
-  unsigned long args2[] = {LED2, 128, 1000};
+  unsigned long args1[] = {LED1, 128, 3000};
+  unsigned long args2[] = {LED2, 128, 2000};
   unsigned long args3[] = {LED3, 128, 1000};
-  unsigned long args4[] = {LED1, 64, 2000};
-  unsigned long args5[] = {LED3, 64, 2000};
-  unsigned long args6[] = {LED2, 254, 1000};
-  unsigned long args7[] = {LED1, 254, 1000};
+
   Pilot.Mission.push_back( new LedBlink(args1) );
   Pilot.Mission.push_back( new LedBlink(args2) );
   Pilot.Mission.push_back( new LedBlink(args3) );
-  Pilot.Mission.push_back( new LedBlink(args4) );
+  /*Pilot.Mission.push_back( new LedBlink(args4) );
   Pilot.Mission.push_back( new LedBlink(args5) );
   Pilot.Mission.push_back( new LedBlink(args6) );
-  Pilot.Mission.push_back( new LedBlink(args7) );
-
-  delay(1000);
+  Pilot.Mission.push_back( new LedBlink(args7) );*/
 
   Serial.print("MISSION SIZE: ");
   Serial.println(Pilot.Mission.size());
@@ -52,13 +47,8 @@ void setup()
 
   delay(2000);
 
-  Pilot.Begin();
-
-  delay(2000);
-
+  //Pilot.Begin();
   PrintMissionProgress();
-
-  delay(1000);
 }
 
 void loop()

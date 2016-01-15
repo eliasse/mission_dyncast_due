@@ -18,10 +18,13 @@ class MissionHandler {
   int Begin();
   int Stop();
   void Loop();
-  void EraseMission();
+  void ClearMission();
   void ResetMission();
   void PrintMission();
   void Swap(int a, int b);
+  void Erase(int args[]);
+  void MultiErase(int a, int b);
+  void SetCurrent(int a);
 };
 
 #endif

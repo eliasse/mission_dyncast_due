@@ -5,7 +5,7 @@ void LedBlink::PrintItem()
   Serial.print("LedBlink, Brightness: ");
   Serial.print(Brightness);
   Serial.print(" Duration: ");
-  Serial.println(duration);
+  Serial.print(duration);
 }
 
 LedBlink::LedBlink(unsigned long args[])
