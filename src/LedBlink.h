@@ -9,7 +9,7 @@
 class LedBlink : public MissionItem {
 public:
   uint8_t Pin, Brightness;
-  unsigned long duration, start;
+  unsigned long duration;
   LedBlink(long args[]);    // Constructor
   void Cloops();            // Activating controlloops
   void Start();             // Function called when maneuver starts

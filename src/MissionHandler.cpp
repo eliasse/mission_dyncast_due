@@ -121,6 +121,7 @@ int MissionHandler::Begin(int argc, CommandParser::arg argv[])
   }
 
   (*Current)->Start();
+  (*Current)->start_ms = millis();
   op_mode = MANEUVER;
   Serial.println("Running mission");
   return 0;
@@ -129,8 +130,6 @@ int MissionHandler::Begin(int argc, CommandParser::arg argv[])
 void MissionHandler::Loop()
 {
   if (op_mode != MANEUVER) {
-    //Serial.println("Not in Maneuver mode");
-    //delay(2000);
     return;
   }
 
@@ -143,6 +142,7 @@ void MissionHandler::Loop()
     if (Current != Mission.end())
       {
 	       (*Current)->Start();
+         (*Current)->start_ms = millis();
       }
     else {
       Serial.println("Mission Complete");

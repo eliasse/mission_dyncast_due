@@ -7,6 +7,7 @@
 class MissionItem {
  public:
   int type;
+  unsigned long start_ms;
   virtual ~MissionItem() {};
   virtual void Cloops() = 0;
   virtual void Start() = 0;

@@ -37,7 +37,7 @@ int LedBlink::Progress()
 {
   static unsigned long print_timer = 0;
 
-  float progress = (float)(millis()-start) / (float)duration;
+  float progress = (float)(millis()-start_ms) / (float)duration;
 
   if ((millis() - print_timer > 1000) || print_timer == 0)
   {
@@ -57,7 +57,7 @@ int LedBlink::Progress()
 void LedBlink::Start()
 {
   Serial.println("Starting LedBlink");
-  start = millis();
+  start_ms = millis();
   analogWrite(Pin, Brightness);
 }
 

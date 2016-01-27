@@ -1,18 +1,16 @@
 #include <vector>
-//#include "MissionItem.h"
 #include "Enums.h"
 #include "LedBlink.h"
 #include <HardwareSerial.h>
 #include "MissionHandler.h"
-#include "Command.h"
+#include "CommandParser.h"
 
 #define LED1 3
 #define LED2 4
 #define LED3 5
 
-// Type definition of functions to call
+// Type definition of functions to call when command is received
 typedef int (*func)(int argc, struct CommandParser::arg argv[]);
-
 #define MAP(X,Y) Map.insert(std::pair<String,func>(String(X), Y))
 
 CommandParser *Menu = new CommandParser(&Serial);
@@ -22,7 +20,7 @@ std::map<String, func, CommandParser::cmpStrings> Map;
 
 int op_mode = SERVICE;
 
-MissionHandler Pilot;
+MissionHandler MH;
 
 void setup()
 {
@@ -43,24 +41,24 @@ void setup()
   long args2[] = {LED2, 128, 2000};
   long args3[] = {LED3, 128, 1000};
 
-  Pilot.Mission.push_back( new LedBlink(args1) );
-  Pilot.Mission.push_back( new LedBlink(args2) );
-  Pilot.Mission.push_back( new LedBlink(args3) );
-  /*Pilot.Mission.push_back( new LedBlink(args4) );
-  Pilot.Mission.push_back( new LedBlink(args5) );
-  Pilot.Mission.push_back( new LedBlink(args6) );
-  Pilot.Mission.push_back( new LedBlink(args7) );*/
+  MH.Mission.push_back( new LedBlink(args1) );
+  MH.Mission.push_back( new LedBlink(args2) );
+  MH.Mission.push_back( new LedBlink(args3) );
+  /*MH.Mission.push_back( new LedBlink(args4) );
+  MH.Mission.push_back( new LedBlink(args5) );
+  MH.Mission.push_back( new LedBlink(args6) );
+  MH.Mission.push_back( new LedBlink(args7) );*/
 
   Serial.print("MISSION SIZE: ");
-  Serial.println(Pilot.Mission.size());
+  Serial.println(MH.Mission.size());
 
-  Pilot.Current = Pilot.Mission.begin();
+  MH.Current = MH.Mission.begin();
   Serial.print("Current - Begin(): ");
-  Serial.println(Pilot.Current - Pilot.Mission.begin());
+  Serial.println(MH.Current - MH.Mission.begin());
 
   delay(2000);
 
-  //Pilot.Begin();
+  //MH.Begin();
   PrintMissionProgress();
 }
 
@@ -68,11 +66,11 @@ void loop()
 {
   //if (Serial.available()) { ReadUserInput(); }
   Menu->CheckPort();
-  Pilot.Loop();
+  MH.Loop();
 }
 
 void PrintMissionProgress()
 {
         Serial.print("Items left: ");
-        Serial.println(Pilot.Mission.size()-1);
+        Serial.println(MH.Mission.size()-1);
 }

@@ -1,4 +1,4 @@
-#include "Command.h"
+#include "CommandParser.h"
 
 void CommandParser::init(std::map<String, func, cmpStrings> m)
 {
