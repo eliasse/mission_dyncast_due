@@ -7,7 +7,7 @@
 class MissionItem {
  public:
   int type;
-  inline ~MissionItem();
+  virtual ~MissionItem() {};
   virtual void Cloops() = 0;
   virtual void Start() = 0;
   virtual int  Progress() = 0;
@@ -15,10 +15,6 @@ class MissionItem {
   virtual void PrintItem() = 0;
   inline  void GetTypeId();
 };
-
-MissionItem::~MissionItem() {
-  Serial.println("Destroying MissionItem");
-}
 
 void MissionItem::GetTypeId() {
   Serial.println("Mission Item Type: ");

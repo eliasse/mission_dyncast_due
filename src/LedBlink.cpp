@@ -8,7 +8,7 @@ void LedBlink::PrintItem()
   Serial.print(duration);
 }
 
-LedBlink::LedBlink(unsigned long args[])
+LedBlink::LedBlink(long args[])
 {
   type = LEDBLINK;
 

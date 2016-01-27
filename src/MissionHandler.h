@@ -2,7 +2,7 @@
 #define _MISSION_HANDLER_
 
 #include "MissionItem.h"
-//#include "LedBlink.h"
+#include "Command.h"
 #include <Arduino.h>
 #include <vector>
 
@@ -11,20 +11,20 @@ extern int op_mode;
 /* Class that actually controls the mission */
 class MissionHandler {
  public:
-  std::vector<MissionItem*> Mission;
-  std::vector<MissionItem*>::iterator Current;
+  static std::vector<MissionItem*> Mission;
+  static std::vector<MissionItem*>::iterator Current;
 
   MissionHandler();
-  int Begin();
-  int Stop();
   void Loop();
-  void ClearMission();
-  void ResetMission();
-  void PrintMission();
-  void Swap(int a, int b);
-  void Erase(int args[]);
-  void MultiErase(int a, int b);
-  void SetCurrent(int a);
+  static int Begin(int argc, CommandParser::arg argv[]);
+  static int Stop(int argc, CommandParser::arg argv[]);
+  static int ClearMission(int argc, CommandParser::arg argv[]);
+  static int ResetMission(int argc, CommandParser::arg argv[]);
+  static int PrintMission(int argc, CommandParser::arg argv[]);
+  static int Swap(int argc, CommandParser::arg argv[]);
+  static int Erase(int argc, CommandParser::arg argv[]);
+  static void MultiErase(int a, int b);
+  static int SetCurrent(int argc, CommandParser::arg argv[]);
 };
 
 #endif
