@@ -1,5 +1,30 @@
 char input[100];
 
+int PrintHelp(int argc, CommandParser::arg argv[])
+{
+  Serial.println("============================== COMMANDS ==============================");
+  PrintCommand(String("PRINT"), String("Prints Mission."));
+  PrintCommand(String("BEGIN"), String("Begin Mission."));
+  PrintCommand(String("CLEAR"), String("Clears Mission (Removes all times)."));
+  PrintCommand(String("ERASE <1> <2>"), String("Removes items <1> to <2>. Optionally just <1> to remove one item."));
+  PrintCommand(String("CURRENT <1>"), String("Set active mission item to <1>."));
+  PrintCommand(String("RESET"), String("Set current mission item to beginning."));
+  PrintCommand(String("SWAP <1> <2>"), String("Swap mission items <1> and <2>."));
+  PrintCommand(String("LED <1> <2> <3>"), String("<Pin[3-5]> <Brightness[0-254]> <Duration[ms]> Add a LED mission item."));
+  PrintCommand(String("INSERT <1> <2> <1*> <2*> <...>"), String("Insert mission item <2> in place <1>. *Arguments to the mission item."));
+}
+
+void PrintCommand(String cmd, String expl) {
+  // Print the command
+  Serial.print(cmd);
+  // Print spaces until 30 chars including command length is achieved
+  for (int i = 0; i < 50 - cmd.length(); i++) {
+    Serial.print(" ");
+  }
+  // Print explanation
+  Serial.println(expl);
+}
+
 int AddLED(int argc, CommandParser::arg argv[])
 {
   if (argc != 4) {
@@ -45,8 +70,9 @@ void SetupMenu()
   MAP("SWAP",     MissionHandler::Swap);
   MAP("LED",      AddLED);
   MAP("INSERT",   Insert);
+  MAP("HELP",     PrintHelp);
 
-  Serial.print("Map size: "); Serial.println(Map.size());
+  Serial.print("Menu size: "); Serial.println(Map.size());
 }
 
 // void ReadUserInput()

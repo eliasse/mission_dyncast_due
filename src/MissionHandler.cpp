@@ -64,7 +64,11 @@ void MissionHandler::MultiErase(int a, int b)
     correctCurrent = true;
   }
 
-  while (std::distance(first, last) >= 0) delete *first++;
+  while (std::distance(first, last) >= 0) {
+    delete *first++;
+  }
+
+  Mission.erase(Mission.begin() + a, last+1);
 
   // Lets put Current to point att item originally after "last"
   if (correctCurrent) Current++;

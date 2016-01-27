@@ -9,12 +9,12 @@ void CommandParser::CheckPort()
 {
   if (port->available()) {
     int b = port->read();
-    port->print((char)b);
+    //port->print((char)b);
 
     if ((b == '\r') || (b == '\n')) {
       // Parse line
-      port->println("Parsing buffer...");
-      port->print("Buffer contains: "); port->println(buffer);
+      //port->println("Parsing buffer...");
+      //port->print("Buffer contains: "); port->println(buffer);
       delay(100);
 
       // Reset pointer
